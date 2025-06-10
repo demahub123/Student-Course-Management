@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <title>Courses</title>
+</head>
+<body>
+  <h2>Courses</h2>
+  <table>
+    <tr><th>Title</th><th>Description</th><th>Actions</th></tr>
+    <% courses.forEach(course => { %>
+      <tr>
+        <td><%= course.title %></td>
+        <td><%= course.description %></td>
+        <td><a href="/enroll/<%= course.id %>">Enroll</a></td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

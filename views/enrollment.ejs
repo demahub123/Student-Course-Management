@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <title>Enrollments</title>
+</head>
+<body>
+  <h2>Your Enrollments</h2>
+  <table>
+    <tr><th>Course</th><th>Date</th></tr>
+    <% enrollments.forEach(enroll => { %>
+      <tr>
+        <td><%= enroll.course.title %></td>
+        <td><%= enroll.createdAt.toDateString() %></td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

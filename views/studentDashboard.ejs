@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <title>Student Dashboard</title>
+</head>
+<body>
+  <div class="dashboard">
+    <h2>Welcome, <%= user.name %></h2>
+    <a href="/courses">View Courses</a>
+    <a href="/enrollments">My Enrollments</a>
+    <a href="/logout" class="btn">Logout</a>
+  </div>
+</body>
+</html>
