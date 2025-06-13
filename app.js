@@ -1,51 +1,77 @@
-// File: app.js
 const express = require('express');
-const sequelize = require('./config/database'); // Your sequelize instance
-const app = express();
-const cors = require('cors');
-const authRoutes = require('./routes/authRoutes');const courseRoutes = require('./routes/courseRoutes');
-const studentRoutes = require('./routes/studentRoutes');
-const enrollmentRoutes = require('./routes/enrollmentRoutes');
 const path = require('path');
-const indexRoutes = require('./routes/indexRoutes');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+require('dotenv').config();
+const bodyParser = require('body-parser');
+const db = require('./config/db');
 
+// Database table creation functions
+const { createUserTable } = require('./models/userModel');
+const { createCourseTable } = require('./models/courseModel');
 
+// Routers
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const dashboardRoutes = require('./routes/userRoutes');  // This is same as userRoutes
+const adminRoutes = require('./routes/adminRoutes');
 
-// For parsing URL-encoded data (from forms)
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// ---------------- MIDDLEWARE ---------------- //
+
+// Parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// Optional: for parsing JSON data if needed elsewhere
+// Parse application/json
 app.use(express.json());
 
-app.use(cors());
-app.use(express.json());
+// Parse cookies
+app.use(cookieParser());
 
-// Set the view engine to EJS
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-console.log('Views directory:', path.join(__dirname, 'views'));
+// Parse application/x-www-form-urlencoded (again for safety)
+app.use(bodyParser.urlencoded({ extended: false }));
 
-// Serve login page
-app.get('/login', (req, res) => {
-  res.render('login'); // make sure views/login.ejs exists
-});
-
-app.get('/signup', (req, res) => {
-  res.render('signup'); // make sure views/login.ejs exists
-});
-
-
-// Static files
+// Serve static files (css, js, images) from public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Session configuration
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'secretkey',
+  resave: false,
+  saveUninitialized: true,
+}));
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/enrollments', enrollmentRoutes);
-app.use('/', indexRoutes);
+// ---------------- VIEW ENGINE ---------------- //
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-const PORT = process.env.PORT || 3000;
+// ---------------- ROUTES ---------------- //
+
+// Auth routes
+app.use('/', authRoutes);
+
+// User dashboard routes
+app.use('/user', userRoutes);
+app.use('/dashboard', userRoutes);  // technically same as /user
+
+// Admin routes
+app.use('/admin', adminRoutes);
+
+// Direct render for signup page (optional)
+app.get('/signup', (req, res) => {
+  res.render('pages/signup');
+});
+
+// ---------------- DATABASE TABLE CREATION ---------------- //
+
+createUserTable();
+createCourseTable();
+
+// ---------------- START SERVER ---------------- //
+
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`)
+  console.log(`Server running at http://localhost:${PORT}`);
 });

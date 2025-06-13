@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Course Management System</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', monospace;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #0d0f18 0%, #121622 80%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .glow-circle {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0,255,247,0.3) 0%, transparent 70%);
+      border-radius: 50%;
+      top: -100px;
+      left: -100px;
+      z-index: 0;
+      filter: blur(80px);
+    }
+
+    .landing-container {
+      position: relative;
+      z-index: 1;
+      background: rgba(18, 22, 34, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 30px rgba(0,255,247,0.5), 0 0 60px rgba(255,0,219,0.3);
+      backdrop-filter: blur(20px);
+      border-radius: 25px;
+      padding: 60px 40px;
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .landing-container h1 {
+      font-size: 3.2rem;
+      margin-bottom: 30px;
+      color: #00fff7;
+      text-shadow: 0 0 20px #00fff7, 0 0 40px #00fff7;
+    }
+
+    .landing-container p {
+      font-size: 1.2rem;
+      margin-bottom: 50px;
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .buttons button {
+      padding: 18px 50px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .buttons button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+      transform: rotate(45deg);
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .buttons button:hover::before {
+      opacity: 1;
+      top: -80%;
+      left: -80%;
+    }
+
+    .login-btn {
+      background-color: #00fff7;
+      color: #121622;
+      box-shadow: 0 0 20px #00fff7;
+    }
+
+    .login-btn:hover {
+      box-shadow: 0 0 40px #00fff7, 0 0 80px #00fff7;
+    }
+
+    .signup-btn {
+      background-color: #ff00db;
+      color: #121622;
+      box-shadow: 0 0 20px #ff00db;
+    }
+
+    .signup-btn:hover {
+      box-shadow: 0 0 40px #ff00db, 0 0 80px #ff00db;
+    }
+
+    footer {
+      position: absolute;
+      bottom: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    @media (max-width: 600px) {
+      .landing-container h1 {
+        font-size: 2.3rem;
+      }
+
+      .landing-container p {
+        font-size: 1rem;
+      }
+
+      .buttons button {
+        width: 80%;
+        padding: 15px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-circle"></div>
+
+  <div class="landing-container">
+    <h1>Student Course<br>Management System</h1>
+    <p>
+      Streamline your academic journey with our comprehensive course management platform.
+      Organize, track, and excel in your studies efficiently.
+    </p>
+    <div class="buttons">
+      <button class="login-btn" onclick="redirectTo('login')">Login</button>
+      <button class="signup-btn" onclick="redirectTo('signup')">Sign Up</button>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Student Course Management System. All rights reserved.
+  </footer>
+
+  <script>
+    function redirectTo(page) {
+      window.location.href = `/${page}`;
+    }
+  </script>
+
+</body>
+</html>

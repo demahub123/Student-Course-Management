@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Students Management</title>
+  <style>
+    /* General body styling */
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    /* Heading styles */
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
+
+    h3 {
+      color: #34495e;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #2980b9;
+      padding-bottom: 5px;
+    }
+
+    /* Form styling */
+    form#studentForm {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+
+    form label {
+      display: inline-block;
+      width: 100px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    form input[type="text"],
+    form input[type="number"] {
+      width: calc(100% - 110px);
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1em;
+      transition: border-color 0.3s ease;
+    }
+
+    form input[type="text"]:focus,
+    form input[type="number"]:focus {
+      border-color: #2980b9;
+      outline: none;
+    }
+
+    /* Submit button */
+    form button[type="submit"] {
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      font-size: 1em;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    form button[type="submit"]:hover {
+      background-color: #1f5f8b;
+    }
+
+    /* Student entries container */
+    #result > div {
+      background: white;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    /* Student info paragraphs */
+    #result p {
+      margin: 5px 0;
+    }
+
+    /* Buttons inside student entries */
+    #result button {
+      background-color: #3498db;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      margin-right: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9em;
+      transition: background-color 0.3s ease;
+    }
+
+    #result button:hover {
+      background-color: #217dbb;
+    }
+
+    #result button.deleteBtn {
+      background-color: #e74c3c;
+    }
+
+    #result button.deleteBtn:hover {
+      background-color: #b0392b;
+    }
+
+    /* Horizontal rule styling */
+    #result hr {
+      border: 0;
+      border-top: 1px solid #ddd;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Students Management</h1>
+
+  <h3>Add New Student</h3>
+  <form id="studentForm">
+    <label>Name:</label>
+    <input type="text" name="name" required /><br />
+
+    <label>Student ID:</label>
+    <input type="text" name="student_id" required /><br />
+
+    <label>Year:</label>
+    <input type="number" name="year" required /><br />
+
+    <label>Course:</label>
+    <input type="text" name="course" required /><br />
+
+    <button type="submit">Add Student</button>
+  </form>
+
+  <h3>Student Details:</h3>
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById('studentForm');
+    const resultDiv = document.getElementById('result');
+    let editingDiv = null;  // to track if we are editing
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // prevent form from submitting
+
+      const name = form.name.value;
+      const studentId = form.student_id.value;
+      const year = form.year.value;
+      const course = form.course.value;
+
+      // If editing, update existing entry
+      if (editingDiv) {
+        editingDiv.querySelector('.name').textContent = name;
+        editingDiv.querySelector('.studentId').textContent = studentId;
+        editingDiv.querySelector('.year').textContent = year;
+        editingDiv.querySelector('.course').textContent = course;
+        editingDiv = null;  // reset editing state
+      } else {
+        // Create a new entry
+        const studentInfo = document.createElement('div');
+        studentInfo.innerHTML = `
+          <p><strong>Name:</strong> <span class="name">${name}</span></p>
+          <p><strong>Student ID:</strong> <span class="studentId">${studentId}</span></p>
+          <p><strong>Year:</strong> <span class="year">${year}</span></p>
+          <p><strong>Course:</strong> <span class="course">${course}</span></p>
+          <button class="editBtn">Edit</button>
+          <button class="deleteBtn">Delete</button>
+          <hr>
+        `;
+        resultDiv.appendChild(studentInfo);
+      }
+
+      form.reset();
+    });
+
+    // Handle Edit & Delete using event delegation
+    resultDiv.addEventListener('click', function (e) {
+      const target = e.target;
+
+      if (target.classList.contains('deleteBtn')) {
+        target.parentElement.remove();
+      }
+
+      if (target.classList.contains('editBtn')) {
+        const studentDiv = target.parentElement;
+
+        form.name.value = studentDiv.querySelector('.name').textContent;
+        form.student_id.value = studentDiv.querySelector('.studentId').textContent;
+        form.year.value = studentDiv.querySelector('.year').textContent;
+        form.course.value = studentDiv.querySelector('.course').textContent;
+
+        editingDiv = studentDiv; // store which div we are editing
+      }
+    });
+  </script>
+</body>
+</html>

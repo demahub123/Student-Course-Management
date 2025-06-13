@@ -1,0 +1,173 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/admin-style.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h2>Admin Portal</h2>
+      <ul class="menu">
+        <li class="active">Dashboard</li>
+        <li>Manage Students</li>
+        <li>Manage Courses</li>
+        <li>View Enrollments</li>
+      </ul>
+      <button class="logout-btn">Logout</button>
+    </aside>
+
+    <main class="main-content">
+      <div class="top-bar">
+        <input type="text" placeholder="Search..." />
+        <button>🔍</button>
+      </div>
+
+      <div class="metrics">
+        <div class="card"><p>Total Students</p><h3><%= students.length %></h3></div>
+        <!-- You can calculate courses/enrollments separately if you have their data
+        <div class="card"><p>Active Courses</p><h3>56</h3></div>
+        <div class="card"><p>Total Enrollments</p><h3>2,845</h3></div>
+        <div class="card"><p>Average Rating</p><h3>4.8</h3></div>
+      </div>
+
+      <div class="bottom-panels">
+        <div class="panel recent">
+          <h4>Recent Students</h4>
+          <ul>
+            <% students.forEach(student => { %>
+              <li>
+                <strong><%= student.name %></strong>
+                <span>Student ID: <%= student.student_id %> | Course: <%= student.course %> | Year: <%= student.year %></span>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+        <div class="panel popular">
+          <h4>Popular Courses</h4>
+          <ul>
+            <li>Introduction to Python <span class="students">458 students</span></li>
+            <li>Machine Learning Basics <span class="students">389 students</span></li>
+            <li>Web Development <span class="students">324 students</span></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="/admin-script.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <style>
+    /* Add this inside a <style> tag in your <head> or in a separate CSS file */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f6f8;
+  margin: 20px;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #34495e;
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #e1e4e8;
+}
+
+th {
+  background-color: #3498db;
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+tr:hover {
+  background-color: #f1f9ff;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+  tr {
+    margin-bottom: 15px;
+  }
+  th {
+    background-color: transparent;
+    color: #3498db;
+    font-size: 14px;
+    text-align: right;
+    padding-right: 50%;
+    position: relative;
+  }
+  td {
+    padding-left: 50%;
+    text-align: left;
+    position: relative;
+  }
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    font-weight: 600;
+    color: #34495e;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+
+  <h2>All Students</h2>
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Student ID</th>
+      <th>Year</th>
+      <th>Course</th>
+    </tr>
+
+    <% students.forEach(student => { %>
+      <tr>
+        <td data-label="ID"><%= student.id %></td>
+        <td data-label="Name"><%= student.name %></td>
+        <td data-label="Student ID"><%= student.student_id %></td>
+        <td data-label="Year"><%= student.year %></td>
+        <td data-label="Course"><%= student.course %></td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>

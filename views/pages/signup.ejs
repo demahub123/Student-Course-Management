@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neon Signup Form</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at center, #121622 0%, #0d0f18 100%);
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    form {
+      background: rgba(18, 22, 34, 0.85);
+      padding: 40px 35px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #ff00db, 0 0 60px #00fff7;
+      width: 320px;
+      text-align: center;
+    }
+
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"] {
+      width: 100%;
+      padding: 15px 15px 15px 15px;
+      margin: 15px 0;
+      border-radius: 10px;
+      border: none;
+      background: #0d0f18;
+      color: #fff;
+      font-size: 1rem;
+      box-shadow: inset 0 0 8px rgba(255, 0, 219, 0.4);
+      transition: 0.3s ease;
+    }
+
+    form input[type="text"]:focus,
+    form input[type="email"]:focus,
+    form input[type="password"]:focus {
+      outline: none;
+      box-shadow: 0 0 15px #ff00db, inset 0 0 15px #ff00db;
+      border: 1px solid #ff00db;
+      background: #121622;
+    }
+
+    .password-field {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .password-field input {
+      padding-right: 45px;
+    }
+
+    .toggle {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      user-select: none;
+      font-size: 1.3rem;
+      color: #ff00db;
+      text-shadow: 0 0 10px #ff00db;
+      transition: color 0.3s ease;
+    }
+
+    .toggle:hover {
+      color: #ff33cc;
+      text-shadow: 0 0 20px #ff33cc;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background: #ff00db;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #121622;
+      cursor: pointer;
+      box-shadow: 0 0 20px #ff00db;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff33cc;
+      box-shadow: 0 0 40px #ff33cc, 0 0 80px #ff33cc;
+    }
+  </style>
+</head>
+<body>
+
+<form method="POST" action="/signup">
+  <input type="text" name="name" placeholder="Enter your name" required />
+  <input type="email" name="email" placeholder="Enter your email" required />
+
+  <div class="password-field">
+    <input type="password" id="password" name="password" placeholder="Enter password" required />
+    <span class="toggle" onclick="toggleVisibility('password')">👁️</span>
+  </div>
+
+  <div class="password-field">
+    <input type="password" id="confirm-password" name="confirmPassword" placeholder="Confirm password" required />
+    <span class="toggle" onclick="toggleVisibility('confirm-password')">👁️</span>
+  </div>
+
+  <button type="submit">Register</button>
+</form>
+
+<script>
+  function toggleVisibility(id) {
+    const input = document.getElementById(id);
+    if (input.type === 'password') {
+      input.type = 'text';
+    } else {
+      input.type = 'password';
+    }
+  }
+</script>
+
+</body>
+</html>
